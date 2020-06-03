@@ -46,13 +46,14 @@ class PostsController extends Controller
     {
         $this->validate($request, [
             'title' => 'required',
-            'body' => 'required'
+            'body' => 'required',
         ]);
 
         // Create Post
         $post = new Post;
         $post->title = $request->input('title');
         $post->body = $request->input('body');
+        $post->user_id = auth()->user()->id;
         $post->save();
 
         return redirect('/posts')->with('success', 'Post Created');
